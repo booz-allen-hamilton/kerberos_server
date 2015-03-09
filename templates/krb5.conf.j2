@@ -17,6 +17,18 @@
   kdc = {{ host }}.{{ kerberos_server_realm_name|lower() }}
   {% endfor %}
   admin_server = {{ ansible_hostname }}.{{ kerberos_server_realm_name|lower() }}
+
+  #
+  # Use 'auth_to_local' to extract local username from Kerberos Principal. The local username is expected to
+  # be the first component in the principal
+  # Ex.
+  # bob@EXAMPLE.COM: First rule wins; local username is 'Bob'
+  # steve/server.com@EXAMPLE.COM Second rule wins: local username is 'steve'
+  # All other principals will return entire principal as the local user name (default behavior)
+  #
+  auth_to_local = RULE:[1:$1]
+  auth_to_local = RULE:[2:$1]
+  auth_to_local = DEFAULT
  }
 
 [domain_realm]
