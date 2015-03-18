@@ -26,7 +26,6 @@
   # steve/server.com@EXAMPLE.COM Second rule wins: local username is 'steve'
   # All other principals will return entire principal as the local user name (default behavior)
   #
-  auth_to_local = RULE:[1:$1]
   auth_to_local = RULE:[2:$1]
   auth_to_local = DEFAULT
  }
